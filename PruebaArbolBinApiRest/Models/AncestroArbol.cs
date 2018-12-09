@@ -7,26 +7,31 @@ namespace PruebaArbolBinApiRest.Models
 {
     public class AncestroArbol
     {
+        //Calcula el ancestro común más cercano entre los valores ingresados
         public static int CalcAncestroComun(ArbolBinario arbolBinario, int ValorNodo1, int ValorNodo2)
         {
             int AncestroComun = 0;
 
             Resultado result = ObtenerAncestroComunMasCercano(arbolBinario.ObtenerNodoRaiz(), ValorNodo1, ValorNodo2);
 
+            //Valida si los valores ingresados existen en el árbol creado previamente
             if (result != null && result.NodoArbol != null)
             {
+                //Valida si los dos valores ingresados son nodos que tienen el mismo padre
                 if (result.ExisteNodo1 && result.ExisteNodo2)
                 {
                     AncestroComun = result.NodoArbol.ObtenerValor();
                 }
                 else
                 {
+                    //Valida si los dos valores ingresados son nodos con padres distintos
                     if (CompararValor(result.NodoArbol, ValorNodo1) || CompararValor(result.NodoArbol, ValorNodo2))
                     {
                         AncestroComun = result.NodoArbol.ObtenerValor();
                     }
                     else
                     {
+                        //Valida si los valor ingresados existen en algún nodo del arbol
                         if (CompararValor(result.NodoArbol, ValorNodo1))
                         {                            
                             throw new Exception("El valor " + ValorNodo2 + " , NO esta presente en el árbol");

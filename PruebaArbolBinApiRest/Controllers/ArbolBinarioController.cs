@@ -11,6 +11,7 @@ namespace PruebaArbolBinApiRest.Controllers
     public class ArbolBinarioController : ApiController
     {
         // POST: ArbolBinario/Crear
+        // API: Metodo para crear el árbol binario
         [HttpPost]
         [Route("API/ArbolBinario/Crear")]
         [ResponseType(typeof(string))]
@@ -33,18 +34,20 @@ namespace PruebaArbolBinApiRest.Controllers
             return Ok(id);
         }
 
+        // POST: ArbolBinario/AncestroComunMasCercano
+        // API: Metodo para obtener el ancestro común más cercano
         [HttpPost]
         [Route("API/ArbolBinario/AncestroComunMasCercano")]
         [ResponseType(typeof(int))]
         public IHttpActionResult ObtenerAncestroComun([FromBody] AncestroComun ac)
         {
-            // Obtiene arbol basado en ID generado previamente por el servicio "<domain>/API/BinaryTree/Create"
+            // Obtiene arbol basado en ID generado previamente por el servicio "<domain>/API/ArbolBinario/Crear"
             ArbolBinario arbolBinario = Almacenamiento.ObtenerArbol(ac.ArbolID);
 
             try
             {
-                // Calcula el ansestro mas cercano basado en el "ID" del arbol creado 
-                // previamente con el servicio "<domain>/API/BinaryTree/Create"
+                // Calcula el ancestro mas cercano basado en el "ID" del arbol creado 
+                // previamente con el servicio "<domain>/API/ArbolBinario/Crear"
                 int commonAncestor = AncestroArbol.CalcAncestroComun(arbolBinario, ac.ValorNodo1, ac.ValorNodo2);
 
                 // Retorna ID de arbol creado

@@ -8,6 +8,7 @@ namespace PruebaArbolBinApiRest.Controllers
 {
     public class Almacenamiento 
     {
+        //Guarda árbol binario en la sesión del usuario
         public static string GuardarArbol(ArbolBinario arbolBinario)
         {
 
@@ -22,6 +23,7 @@ namespace PruebaArbolBinApiRest.Controllers
             return id;
         }
 
+        //Obtiene el árbol binario almacenado en la sesión del usuario
         public static ArbolBinario ObtenerArbol(string id)
         {
             // Se obtiene de la base de datos (simulada) por la session

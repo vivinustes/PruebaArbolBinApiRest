@@ -26,6 +26,7 @@ namespace PruebaArbolBinApiRest.Models
             nodoRaiz = InsertarNodo(nodoRaiz, Nodo);
         }
 
+        //Inserta los valores ingresados al arreglo del árbol binario
         private NodoArbolBinario InsertarNodo(NodoArbolBinario nodoArbolBinario, int Nodo)
         {
             if (nodoArbolBinario == null)
