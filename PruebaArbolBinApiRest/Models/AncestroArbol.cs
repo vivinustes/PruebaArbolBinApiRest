@@ -47,7 +47,7 @@ namespace PruebaArbolBinApiRest.Models
             return AncestroComun;
         }
 
-        private static Resultado ObtenerAncestroComunMasCercano (NodoArbolBinario NodoArbol, int valor1, int valor2)
+        private static Resultado ObtenerAncestroComunMasCercano (NodoArbolBinario NodoArbol, int valor1, int valor2, NodoArbolBinario nodoPadre = null)
         {
 
             if (NodoArbol == null) return new Resultado();
@@ -57,19 +57,42 @@ namespace PruebaArbolBinApiRest.Models
             if (NodoArbol.ObtenerValor() == valor1)
             {
                 result.ExisteNodo1 = true;
-                result.NodoArbol = NodoArbol;
+
+                if (NodoArbol.ObeterNodoDerecha() != null && NodoArbol.ObeterNodoDerecha().ObtenerValor() == valor2)
+                {
+                    result.NodoArbol = nodoPadre;
+                }
+                else if (NodoArbol.ObeterNodoIzquierda() != null && NodoArbol.ObeterNodoIzquierda().ObtenerValor() == valor2)
+                {
+                    result.NodoArbol = nodoPadre;
+                }
+                else
+                {
+                    result.NodoArbol = NodoArbol;
+                }
                 return result;
             }
 
             if (NodoArbol.ObtenerValor() == valor2)
             {
                 result.ExisteNodo2 = true;
-                result.NodoArbol = NodoArbol;
+                if (NodoArbol.ObeterNodoDerecha() != null && NodoArbol.ObeterNodoDerecha().ObtenerValor() == valor1)
+                {
+                    result.NodoArbol = nodoPadre;
+                }
+                else if (NodoArbol.ObeterNodoIzquierda() != null && NodoArbol.ObeterNodoIzquierda().ObtenerValor() == valor1)
+                {
+                    result.NodoArbol = nodoPadre;
+                }
+                else
+                {
+                    result.NodoArbol = NodoArbol;
+                }
                 return result;
             }
-
-            Resultado resultadoIzquierda = ObtenerAncestroComunMasCercano(NodoArbol.ObeterNodoIzquierda(), valor1, valor2);
-            Resultado resultadoDerecha = ObtenerAncestroComunMasCercano(NodoArbol.ObeterNodoDerecha(), valor1, valor2);
+            
+            Resultado resultadoIzquierda = ObtenerAncestroComunMasCercano(NodoArbol.ObeterNodoIzquierda(), valor1, valor2, NodoArbol);
+            Resultado resultadoDerecha = ObtenerAncestroComunMasCercano(NodoArbol.ObeterNodoDerecha(), valor1, valor2, NodoArbol);
 
             if (resultadoIzquierda.NodoArbol != null && resultadoDerecha.NodoArbol != null)
             {
@@ -84,23 +107,13 @@ namespace PruebaArbolBinApiRest.Models
             {
                 result.ExisteNodo1 = true;
                 result.NodoArbol = resultadoIzquierda.NodoArbol;
-                //result.NodoArbol = NodoArbol;
                 return result;
             }
 
-            //if (resultadoDerecha.NodoArbol != null)
-            //{
-            //    result.ExisteNodo2 = true;
-            //    result.NodoArbol = resultadoDerecha.NodoArbol;
-            //    return result;
-            //}
-
-
             result.ExisteNodo2 = true;
             result.NodoArbol = resultadoDerecha.NodoArbol;
-            //result.NodoArbol = NodoArbol;
             return result;
-            //return null;
+
         }
 
         public static bool CompararValor(NodoArbolBinario nodoArbolBinario, int valor)

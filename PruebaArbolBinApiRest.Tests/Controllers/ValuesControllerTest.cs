@@ -14,68 +14,23 @@ namespace PruebaArbolBinApiRest.Tests.Controllers
     public class ValuesControllerTest
     {
         [TestMethod]
-        public void Get()
-        {
-            // Disponer
-            ValuesController controller = new ValuesController();
-
-            // Actuar
-            IEnumerable<string> result = controller.Get();
-
-            // Declarar
-            Assert.IsNotNull(result);
-            Assert.AreEqual(2, result.Count());
-            Assert.AreEqual("value1", result.ElementAt(0));
-            Assert.AreEqual("value2", result.ElementAt(1));
-        }
-
-        [TestMethod]
-        public void GetById()
-        {
-            // Disponer
-            ValuesController controller = new ValuesController();
-
-            // Actuar
-            string result = controller.Get(5);
-
-            // Declarar
-            Assert.AreEqual("value", result);
-        }
-
-        [TestMethod]
         public void Post()
         {
+            ArbolBinarioController controller = new ArbolBinarioController();
+
             // Disponer
-            ValuesController controller = new ValuesController();
+            controller.Request = new HttpRequestMessage
+            {
+                RequestUri = new Uri("http://localhost:56474/API/ArbolBinario/Crear")
+            };
 
             // Actuar
-            controller.Post("value");
+            string[] arr1 = new string[] { "70", "76", "80" };
+            IHttpActionResult actionResult = controller.Crear(arr1);
 
             // Declarar
+            Assert.IsNotNull(actionResult);
         }
 
-        [TestMethod]
-        public void Put()
-        {
-            // Disponer
-            ValuesController controller = new ValuesController();
-
-            // Actuar
-            controller.Put(5, "value");
-
-            // Declarar
-        }
-
-        [TestMethod]
-        public void Delete()
-        {
-            // Disponer
-            ValuesController controller = new ValuesController();
-
-            // Actuar
-            controller.Delete(5);
-
-            // Declarar
-        }
     }
 }
